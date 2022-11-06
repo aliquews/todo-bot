@@ -21,8 +21,8 @@ async def add_task(message:Message, state: FSMContext):
     await message.answer("Please enter your task")
     await state.set_state(AddTask.enter_task)
 
-@router.message(AddTask.enter_task)
-async def ent_task(message: Message):
+@router.message(state=AddTask.enter_task)
+async def ent_task(message: Message, state: FSMContext):
     with Session(engine) as session:
         stmt = select(User.id).where(User.tgid == message.from_user.id)
         tsk = Tasks(
@@ -32,3 +32,4 @@ async def ent_task(message: Message):
         session.add_all([tsk])
         session.commit()
     await message.answer("Your task succesfully added!")
+    await state.clear()
