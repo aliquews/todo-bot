@@ -23,13 +23,19 @@ class Tasks(Base):
     task = Column(Text)
 
     def __repr__(self) -> str:
-        return f"Tasks(id={self.id},user_id={self.tgid}, task={self.task})"
+        return f"Tasks(id={self.id},user_id={self.user_id}, task={self.task})"
 
 if __name__ == "__main__":
-    #Base.metadata.create_all(engine)
+    # Base.metadata.create_all(engine)
     session = Session(engine)
-    usr_id = session.scalar(select(User.id).where(User.tgid == message.from_user.id))
-    stmt = session.get(Tasks, session.scalar(select(Tasks.id).where(Tasks.task == text).where(Tasks.user_id == usr_id)))
-    session.delete(stmt)
-    session.commit()
+    usr_id = session.scalar(select(User.id).where(User.tgid == 416493063))
+    print(usr_id)
+    # stmt = session.get(Tasks, session.scalar(select(Tasks.id).where(Tasks.task == "Find job").where(Tasks.user_id == usr_id)))
+    # session.delete(stmt)
+    # session.commit()
     session.close()
+    #usr_id = session.scalar(select(User.id).where(User.tgid == 416493063))
+    #stm = session.get(Tasks, session.scalar(select(Tasks.id).where(Tasks.task == "Find job").where(Tasks.user_id == usr_id)))
+    #print(stm)
+    # session.delete(stm)
+    # session.commit()

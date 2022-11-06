@@ -20,12 +20,12 @@ async def cmd_start(message: Message):
     session.close()
     buttons = [
         [
-            KeyboardButton(text="Add new task"),
-            KeyboardButton(text="My tasks"),
+            KeyboardButton(text="Добавить задачу"),
+            KeyboardButton(text="Мои задачи"),
         ],
     ]
     keyboard = ReplyKeyboardMarkup(
         keyboard=buttons,
         resize_keyboard=True
     )
-    await message.answer("Hello! I'm To do task bot =)", reply_markup=keyboard)
+    await message.answer("Привет! Я бот для задач =)", reply_markup=keyboard)

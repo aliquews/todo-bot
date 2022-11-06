@@ -11,53 +11,57 @@ from misc.tables import Base, User, Tasks, engine
 from typing import Optional
 from magic_filter import F
 
+
 class MyCallbackFactory(CallbackData, prefix="task"):
     action: str
-    value: Optional[int]
-
+    text: str
 
 router = Router()
-
-
-@router.message(Text(text="My tasks"))
+@router.message(Text(text="Мои задачи"))
 async def show_tasks(message:Message):
     builder = InlineKeyboardBuilder()
     session = Session(engine)
-    stmt = select(Tasks.task).where(Tasks.user_id == 1)
+    usrid = session.scalar(select(User.id).where(User.tgid == message.from_user.id))
+    stmt = select(Tasks.task).where(Tasks.user_id == usrid)
     id = 0
     for txt in session.scalars(stmt):
         builder.button(
             text = txt,
-            callback_data=MyCallbackFactory(action="delete",value=id)
+            callback_data=MyCallbackFactory(action="delete",text=txt)
         )
         id+=1
     builder.adjust(1)
     session.close()
-    await message.answer("This is yours list of task!\nIf you want to complete the task - <b>just click them</b>",reply_markup=builder.as_markup(), parse_mode="HTML")
+    await message.answer("Твой список задач!\nЕсли ты хочешь завершить задачу - <b>просто нажми на неё</b>",reply_markup=builder.as_markup(), parse_mode="HTML")
 
 
 async def del_task(message: Message, text: str):
     session = Session(engine)
-    usr_id = session.scalar(select(User.id).where(User.tgid == message.from_user.id))
-    stmt = session.get(Tasks, session.scalar(select(Tasks.id).where(Tasks.task == text).where(Tasks.user_id == usr_id)))
-    session.execute(stmt)
+
+    usr_id = session.scalar(select(User.id).where(User.tgid == message.chat.id))
+    stm = session.get(Tasks, session.scalar(select(Tasks.id).where(Tasks.task == text).where(Tasks.user_id == usr_id)))
+
+    session.delete(stm)
     session.commit()
+
     builder = InlineKeyboardBuilder()
-    stmt = select(Tasks.task).where(Tasks.user_id == 1)
+    stmt = select(Tasks.task).where(Tasks.user_id == usr_id)
     id = 0
     for txt in session.scalars(stmt):
         builder.button(
             text = txt,
-            callback_data=MyCallbackFactory(action="delete",value=id)
+            callback_data=MyCallbackFactory(action="delete",text=txt)
         )
         id+=1
+
     builder.adjust(1)
     session.close()
-    await message.edit_text("This is yours list of task!\nIf you want to complete the task - <b>just click them</b>\n(TEST)", reply_markup=builder.as_markup(), parse_mode="HTML")
+    await message.edit_text("Твой список задач!\nЕсли ты хочешь завершить задачу - <b>просто нажми на неё</b>", reply_markup=builder.as_markup(), parse_mode="HTML")
 
 
 @router.callback_query(MyCallbackFactory.filter())
 async def update_task(callback: CallbackQuery, callback_data: MyCallbackFactory):
     if callback_data.action == "delete":
-        await del_task(callback.message, callback.message.text)
-    await callback.answer()
+        await del_task(callback.message, callback_data.text)
+        # await callback.answer(callback_data.text)
+    await callback.answer("Задача удалена!")

@@ -16,9 +16,9 @@ engine = create_engine("postgresql+psycopg2://postgres:111@localhost/newdb")
 
 router = Router()
 
-@router.message(Text(text="Add new task"))
+@router.message(Text(text="Добавить задачу"))
 async def add_task(message:Message, state: FSMContext):
-    await message.answer("Please enter your task")
+    await message.answer("Напиши мне задачу")
     await state.set_state(AddTask.enter_task)
 
 @router.message(state=AddTask.enter_task)
@@ -31,5 +31,5 @@ async def ent_task(message: Message, state: FSMContext):
         )
         session.add_all([tsk])
         session.commit()
-    await message.answer("Your task succesfully added!")
+    await message.answer("Задача добавлена!")
     await state.clear()
