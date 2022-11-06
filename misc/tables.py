@@ -3,6 +3,10 @@ from sqlalchemy.orm import declarative_base, relationship, Session
 from sqlalchemy import select, exists
 
 Base = declarative_base()
+
+engine = create_engine("postgresql+psycopg2://postgres:111@localhost/newdb")
+
+
 class User(Base):
     __tablename__ = "telegram_user"
     id = Column(BigInteger, primary_key=True)
@@ -22,7 +26,6 @@ class Tasks(Base):
         return f"Tasks(id={self.id},tgid={self.tgid}, task={self.task})"
 
 if __name__ == "__main__":
-    engine = create_engine("postgresql+psycopg2://postgres:111@localhost/newdb")
     # Base.metadata.create_all(engine)
     session = Session(engine)
     stmt = select(User.id).where(User.tgid == 416493063)
