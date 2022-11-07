@@ -1,4 +1,4 @@
-from sqlalchemy import Column, ForeignKey, String, Text, create_engine, BigInteger
+from sqlalchemy import Column, ForeignKey, String, Text, create_engine, BigInteger, Date
 from sqlalchemy.orm import declarative_base, relationship, Session
 from sqlalchemy import select, exists, delete
 
@@ -21,21 +21,15 @@ class Tasks(Base):
     id = Column(BigInteger, primary_key=True)
     user_id = Column(BigInteger, ForeignKey("telegram_user.id"))
     task = Column(Text)
+    deadline = Column(Date, index=True)
 
     def __repr__(self) -> str:
-        return f"Tasks(id={self.id},user_id={self.user_id}, task={self.task})"
+        return f"Tasks(id={self.id},user_id={self.user_id}, task={self.task}, deadline={self.deadline})"
 
 if __name__ == "__main__":
     # Base.metadata.create_all(engine)
     session = Session(engine)
-    usr_id = session.scalar(select(User.id).where(User.tgid == 416493063))
-    print(usr_id)
-    # stmt = session.get(Tasks, session.scalar(select(Tasks.id).where(Tasks.task == "Find job").where(Tasks.user_id == usr_id)))
-    # session.delete(stmt)
-    # session.commit()
+    stmt = select(Tasks.task, Tasks.deadline).where(Tasks.user_id == 1)
+    for user in session.scalars(stmt):
+        print(user)
     session.close()
-    #usr_id = session.scalar(select(User.id).where(User.tgid == 416493063))
-    #stm = session.get(Tasks, session.scalar(select(Tasks.id).where(Tasks.task == "Find job").where(Tasks.user_id == usr_id)))
-    #print(stm)
-    # session.delete(stm)
-    # session.commit()

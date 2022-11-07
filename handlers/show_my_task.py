@@ -1,15 +1,11 @@
 from aiogram import Router
-from aiogram.types import Message, InlineKeyboardButton, CallbackQuery
+from aiogram.types import Message, CallbackQuery
 from aiogram.utils.keyboard import InlineKeyboardBuilder
-from aiogram.dispatcher.fsm.context import FSMContext
 from aiogram.dispatcher.filters.text import Text
-from aiogram.dispatcher.filters.state import State, StatesGroup
 from aiogram.dispatcher.filters.callback_data import CallbackData
-from sqlalchemy import select, delete
+from sqlalchemy import select
 from sqlalchemy.orm import Session
-from misc.tables import Base, User, Tasks, engine
-from typing import Optional
-from magic_filter import F
+from misc.tables import User, Tasks, engine
 
 
 class MyCallbackFactory(CallbackData, prefix="task"):
