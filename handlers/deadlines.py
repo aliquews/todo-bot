@@ -21,7 +21,9 @@ def get_text(message: Message) -> str:
             tmp_dl = ''
             days = (datetime(int(dl[0]), int(dl[1]), int(dl[2])) - datetime.today()).days + 1
 
-            if(days == 1):
+            if days <= 0:
+                tmp_dl += '<b>срок окончания прошел</b> ❗️\n'
+            elif(days == 1):
                 tmp_dl += 'срок окончания -<b>до завтра</b> 🔴\n'
 
             elif(days < 7 and (days % 10 in (2,3,4))):

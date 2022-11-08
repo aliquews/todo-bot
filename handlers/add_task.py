@@ -72,8 +72,6 @@ async def ent_month(message: Message, state: FSMContext):
             .values(deadline=sqldate)
         )
         session.commit()
-    print(txt[0])
     txt.clear()
-    print(sqldate)
     await message.answer("Задача успешно создана!", reply_markup=main_kb())
     await state.clear()
