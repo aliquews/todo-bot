@@ -28,10 +28,10 @@ class Tasks(Base):
         return f"Tasks(id={self.id},user_id={self.user_id}, task={self.task}, deadline={self.deadline})"
 
 if __name__ == "__main__":
-    # Base.metadata.create_all(engine)
-    session = Session(engine)
-    stmt = select(Tasks).where(Tasks.user_id == 1)
-    for task in session.scalars(stmt):
-        print(task.task, task.deadline)
-    session.close()
-    print(type((datetime.today() - datetime(2022,11,10)).days))
+    Base.metadata.create_all(engine)
+    # session = Session(engine)
+    # usr_id = select(User.tgid)
+    # for task in session.scalars(usr_id):
+    #     print(type(task))
+    # session.close()
+    # print(type((datetime.today() - datetime(2022,11,10)).days))
