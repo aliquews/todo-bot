@@ -1,6 +1,7 @@
 from sqlalchemy import Column, ForeignKey, String, Text, create_engine, BigInteger, Date
 from sqlalchemy.orm import declarative_base, relationship, Session
 from sqlalchemy import select, exists, delete
+from datetime import datetime
 
 Base = declarative_base()
 
@@ -29,7 +30,8 @@ class Tasks(Base):
 if __name__ == "__main__":
     # Base.metadata.create_all(engine)
     session = Session(engine)
-    stmt = select(Tasks.task, Tasks.deadline).where(Tasks.user_id == 1)
-    for user in session.scalars(stmt):
-        print(user)
+    stmt = select(Tasks).where(Tasks.user_id == 1)
+    for task in session.scalars(stmt):
+        print(task.task, task.deadline)
     session.close()
+    print(type((datetime.today() - datetime(2022,11,10)).days))

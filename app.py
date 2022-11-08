@@ -1,7 +1,7 @@
 import asyncio
 import logging
 from aiogram import Bot, Dispatcher
-from handlers import start, add_task, show_my_task
+from handlers import start, add_task, show_my_task, deadlines
 
 logging.basicConfig(level=logging.INFO)
 
@@ -13,6 +13,7 @@ async def main():
     dp.include_router(start.router)
     dp.include_router(add_task.router)
     dp.include_router(show_my_task.router)
+    dp.include_router(deadlines.router)
     await dp.start_polling(bot)
 
 if __name__ == "__main__":
