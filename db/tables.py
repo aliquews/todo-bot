@@ -1,7 +1,6 @@
-from sqlalchemy import Column, ForeignKey, String, Text, create_engine, BigInteger, Date
-from sqlalchemy.orm import declarative_base, relationship, Session
-from sqlalchemy import select, exists, delete
-from datetime import datetime
+from sqlalchemy import Column, ForeignKey, Text, create_engine, BigInteger, Date
+from sqlalchemy.orm import declarative_base, relationship
+
 
 Base = declarative_base()
 

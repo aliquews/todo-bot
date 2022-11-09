@@ -1,4 +1,4 @@
-from misc.tables import engine, Base
+from db.tables import engine, Base
 
 class DataBase:
     def __init__(self):

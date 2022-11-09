@@ -1,6 +1,6 @@
 from aiogram import Bot
 from misc.get_dl import get_text
-from misc.tables import User, engine
+from db.tables import User, engine
 from sqlalchemy import select
 from sqlalchemy.orm import Session
 

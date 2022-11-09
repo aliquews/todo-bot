@@ -5,7 +5,7 @@ from aiogram.dispatcher.filters.text import Text
 from aiogram.dispatcher.filters.callback_data import CallbackData
 from sqlalchemy import select
 from sqlalchemy.orm import Session
-from misc.tables import User, Tasks, engine
+from db.tables import User, Tasks, engine
 
 
 class MyCallbackFactory(CallbackData, prefix="task"):

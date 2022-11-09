@@ -3,7 +3,7 @@ import logging
 from aiogram import Bot, Dispatcher
 from handlers import start, add_task, show_my_task, deadlines, notifications
 from apscheduler.schedulers.asyncio import AsyncIOScheduler
-from misc.database import DataBase
+from db.database import DataBase
 
 logging.basicConfig(level=logging.INFO)
 

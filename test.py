@@ -1,3 +1,3 @@
-from misc.database import DataBase
+from db.database import DataBase
 
 db = DataBase()

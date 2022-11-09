@@ -5,7 +5,7 @@ from aiogram.dispatcher.filters.text import Text
 from aiogram.dispatcher.filters.state import State, StatesGroup
 from sqlalchemy import create_engine, select, update
 from sqlalchemy.orm import Session
-from misc.tables import Base, User, Tasks
+from db.tables import Base, User, Tasks
 from keyboards.kb_date import kb_day, kb_month, kb_year, months
 from keyboards.main_kb import main_kb
 

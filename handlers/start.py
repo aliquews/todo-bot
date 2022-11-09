@@ -1,6 +1,6 @@
 from aiogram import Router
 from aiogram.types import Message
-from misc.tables import Base, User, Tasks
+from db.tables import Base, User, Tasks
 from sqlalchemy import create_engine, select, exists
 from sqlalchemy.orm import Session
 from keyboards.main_kb import main_kb

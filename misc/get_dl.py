@@ -1,5 +1,5 @@
 from datetime import datetime
-from misc.tables import Tasks, User, engine
+from db.tables import Tasks, User, engine
 from sqlalchemy import select
 from sqlalchemy.orm import Session
 
