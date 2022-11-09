@@ -10,6 +10,6 @@ router = Router()
 async def show_deadlines(message: Message):
     await message.answer("Информация по дедлайнам:")
     try:
-        await message.answer(get_text(message.from_user.id),parse_mode="HTML")
+        await message.answer(get_text(message.chat.id),parse_mode="HTML")
     except:
         await message.answer("Ой-ой, твой список задач пуст")

@@ -4,12 +4,12 @@ from aiogram import Bot, Dispatcher
 from handlers import start, add_task, show_my_task, deadlines, notifications
 from apscheduler.schedulers.asyncio import AsyncIOScheduler
 from db.database import DataBase
+from config import API_TOKEN
 
 logging.basicConfig(level=logging.INFO)
 
-bot = Bot("5745503928:AAG_fWw5wWbDv-HubYxAvOTyR-b_bC-gAdU")
+bot = Bot(API_TOKEN)
 dp = Dispatcher()
-data_b = DataBase()
 
 
 async def main():

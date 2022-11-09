@@ -1,12 +1,9 @@
-from sqlalchemy import Column, ForeignKey, Text, create_engine, BigInteger, Date
+from sqlalchemy import Column, ForeignKey, Text, BigInteger, Date, create_engine
 from sqlalchemy.orm import declarative_base, relationship
 
 
 Base = declarative_base()
-
 engine = create_engine("postgresql+psycopg2://postgres:111@localhost/newdb")
-
-
 class User(Base):
     __tablename__ = "telegram_user"
     id = Column(BigInteger, primary_key=True)

@@ -59,5 +59,4 @@ async def del_task(message: Message, text: str):
 async def update_task(callback: CallbackQuery, callback_data: MyCallbackFactory):
     if callback_data.action == "delete":
         await del_task(callback.message, callback_data.text)
-        # await callback.answer(callback_data.text)
     await callback.answer("Задача удалена!")

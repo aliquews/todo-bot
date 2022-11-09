@@ -1,3 +1,5 @@
 .todo/
 test.*
 **/__pycache__/
+.env
+config.*
