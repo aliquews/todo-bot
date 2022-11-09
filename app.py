@@ -3,11 +3,13 @@ import logging
 from aiogram import Bot, Dispatcher
 from handlers import start, add_task, show_my_task, deadlines, notifications
 from apscheduler.schedulers.asyncio import AsyncIOScheduler
+from misc.database import DataBase
 
 logging.basicConfig(level=logging.INFO)
 
 bot = Bot("5745503928:AAG_fWw5wWbDv-HubYxAvOTyR-b_bC-gAdU")
 dp = Dispatcher()
+data_b = DataBase()
 
 
 async def main():
