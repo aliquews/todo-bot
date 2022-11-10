@@ -2,18 +2,13 @@ from aiogram import Router
 from aiogram.types import Message
 from aiogram.dispatcher.fsm.context import FSMContext
 from aiogram.dispatcher.filters.text import Text
-from keyboards.kb_date import kb_day, kb_month, kb_year, months
+from keyboards.kb_date import kb_day, kb_month, kb_year
+from misc.tmpvar import *
 from keyboards.main_kb import main_kb
 from states.AddTask import AddTask
 from db.database import db
 
 router = Router()
-
-convert = dict(zip(months, [i for i in range(1,13)]))
-
-convert_date = list()
-
-txt = list()
 
 @router.message(Text(text="Добавить задачу"))
 async def add_task(message:Message, state: FSMContext):

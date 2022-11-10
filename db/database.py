@@ -38,4 +38,34 @@ class DataBase:
             )
             session.commit()
 
+    def distr(self):
+        lst = None
+        with Session(self.engine) as session:
+            usr_id = select(User.tgid)
+            lst = session.scalars(usr_id)
+        return lst
+
+    def inline_list(self, id: int):
+        lst = None
+        with Session(self.engine) as session:
+            usrid = session.scalar(self.__select_id_by_tgid(id))
+            stmt = select(Tasks.task).where(Tasks.user_id == usrid)
+            lst = session.scalars(stmt)
+        return lst
+
+    def del_task_db(self, id, text):
+        with Session(self.engine) as session:
+            usrid = session.scalar(self.__select_id_by_tgid(id))
+            stmt = session.get(Tasks, session.scalar(select(Tasks.id).where(Tasks.task == text).where(Tasks.user_id == usrid)))
+            session.delete(stmt)
+            session.commit()
+
+    def select_task(self, id):
+        stmt = None
+        with Session(self.engine) as session:
+            usr_id = session.scalar(self.__select_id_by_tgid(id))
+            stmt = session.scalars(select(Tasks.task).where(Tasks.user_id == usr_id))
+
+        return stmt
+
 db = DataBase(DB_LOGIN)

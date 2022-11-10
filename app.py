@@ -3,16 +3,14 @@ import logging
 from aiogram import Bot, Dispatcher
 from handlers import start, add_task, show_my_task, deadlines, notifications
 from apscheduler.schedulers.asyncio import AsyncIOScheduler
-from db.database import DataBase
 from config import API_TOKEN
 
 logging.basicConfig(level=logging.INFO)
 
-bot = Bot(API_TOKEN)
-dp = Dispatcher()
-
 
 async def main():
+    bot = Bot(API_TOKEN)
+    dp = Dispatcher()
     scheduler = AsyncIOScheduler()
 
     dp.include_router(start.router)
