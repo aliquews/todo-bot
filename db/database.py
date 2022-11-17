@@ -68,4 +68,13 @@ class DataBase:
 
         return stmt
 
+    def tasks_dl(self, id): # misc function an outgoing message informing about deadlines
+        outdata = dict()
+        with Session(self.engine) as session:
+            usr_id = select(User.id).where(User.tgid == id)
+            stmt = select(Tasks).where(Tasks.user_id == usr_id)
+            for task in session.scalars(stmt):
+                outdata[task.task] = str(task.deadline).split('-')
+        return outdata
+
 db = DataBase(DB_LOGIN)
